@@ -1,22 +1,28 @@
 import pandas as pd
 from pandas.testing import assert_frame_equal
+import hw_4_test_gen as h4tg
 
 def generate_test_dict():
     print("Fetching test data...")
+    test_list = [h4tg.create_standard_teams_test(),
+                 h4tg.create_nba_teams_test(),
+                 h4tg.create_standard_players_test(),
+                 h4tg.create_nba_players_test(),
+                 h4tg.count_nba_player_nationalities_test()
+    ]
     test_dict = dict()
-    for i in range(1, 6):
-        dict_k = "question_{}".format(i)
-        data_name = "test_df_{}.feather".format(i)
-        dict_v = pd.read_feather(data_name)
+    for i, df in enumerate(test_list):
+        dict_k = "question_{}".format(i + 1)
+        dict_v = df
         test_dict[dict_k] = dict_v
     return test_dict
 
 def generate_answer_dict(answer_list):
     print("Fetching our answers...")
     answer_dict = dict()
-    for i, answer in enumerate(answer_list):
+    for i, df in enumerate(answer_list):
         dict_k = "question_{}".format(i + 1)
-        dict_v = answer_list[i]
+        dict_v = df
         answer_dict[dict_k] = dict_v
     return answer_dict
 
